@@ -1,16 +1,14 @@
 from debuff import Routed
-from typing import Optional, TYPE_CHECKING
-if TYPE_CHECKING:
-    from enemy import Enemy
+
 class weapon:
-    def __init__ (self, name, level, HP, ATK, DEF, superimposition):
+    def __init__ (self, name, level, HP, ATK, DEF, superimposition,owner):
         self.name = name
         self.level = level
         self.HP = HP
         self.ATK = ATK
         self.DEF = DEF
         self.superimposition = superimposition
-        self.owner = None
+        self.owner = owner
 
 class whereabouts_should_the_dreams_rest(weapon):
     def __init__(self, level, owner):
@@ -25,12 +23,12 @@ class whereabouts_should_the_dreams_rest(weapon):
         )
         self.weapon_default_effect()
     def weapon_default_effect(self):
-        self.owner.break_effect += 0.6 * self.owner.break_effect 
-        self.owner.HP += self.HP
+        self.owner.break_effect += 0.6 
+        self.owner.hp += self.HP
         self.owner.attack += self.ATK
         self.owner.defense += self.DEF
          
-    def weapon_take_effect(self,target:Optional[Enemy]):
+    def weapon_take_effect(self,target):
         routed = Routed(target)
         routed.take_effect()
         

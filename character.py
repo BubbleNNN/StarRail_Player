@@ -1,4 +1,6 @@
-class Character:
+from weapon import whereabouts_should_the_dreams_rest
+from abc import ABC, abstractmethod
+class Character(ABC):
     '''
     角色基类
     '''
@@ -41,7 +43,6 @@ class Character:
             "attack": self.attack,
             "defense": self.defense,
             "speed": self.speed,
-            "energy_limit": self.energy_limit,
             "critical_chance": self.critical_chance,
             "critical_damage": self.critical_damage,
             "break_effect": self.break_effect,
@@ -67,6 +68,107 @@ class Character:
             'debuff': self.debuff,
             'buff': self.buff,
         }
-    
+    @abstractmethod
+    def talent_buff(self):
+        pass
+    @abstractmethod
+    def yiqi(self):
+        pass
+    @abstractmethod
+    def talent_effect(self):#天赋效果，每回合检查
+        pass
+    @abstractmethod
+    def talent_buff(self):
+        """
+        角色天赋加成,一次性加成
+        """
+        pass
+    @abstractmethod
+    def normal_attack(self, target):
+        """
+        普通攻击
+        """
+    @abstractmethod
+    def skill_attack(self, target):
+        """
+        技能攻击
+        """
+        pass
+    @abstractmethod
+    def ult_attack(self, target):
+        """
+        大招攻击
+        """
+        pass
+    @abstractmethod
+    def yiqi_effect(self):#遗器效果，每回合检查
+        pass
+class Firefly(Character):
+    def __init__(self, level):
+        super().__init__(
+            name = 'Firefly',
+            level = level,
+            hp = 815,
+            attack = 524,
+            defense = 777,
+            speed = 104,
+            critical_chance = 0.05,
+            critical_damage = 0.5,
+            break_effect = 0,
+            outgoing_healing_boost = 0,
+            max_energy = 240,
+            energy_regeneration_rate = 100,
+            effect_hit_rate = 0,
+            effect_resistance = 0,
+            physical_DMG_boost = 0,
+            fire_DMG_boost = 0,
+            ice_DMG_boost = 0,
+            lightning_DMG_boost = 0,
+            wind_DMG_boost = 0,
+            quantum_DMG_boost = 0,
+            imaginary_DMG_boost = 0,
+            phisical_RES_boost = 0,
+            fire_RES_boost = 0,
+            ice_RES_boost = 0,
+            lightning_RES_boost = 0,
+            wind_RES_boost = 0,
+            quantum_RES_boost = 0,
+            imaginary_RES_boost = 0
+        )
+        self.weapon = whereabouts_should_the_dreams_rest(level = 80,owner = self)
+        self.talent_buff()
+        self.yiqi()
+        self.talent_effect()
+    def talent_buff(self):
+        self.speed += 5
+        self.break_effect +=  0.373
+        self.effect_resistance += 0.18
+    def talent_effect(self):
+        if self.attack >=1800:
+            self.break_effect += (self.attack-1800)/10 * 0.008
+    def yiqi(self):
+        self.speed += 60
+        self.hp += 930
+        self.attack += 1390
+        self.defense += 151
+        self.critical_chance += 0.029
+        self.critical_damage += 0.129
+        self.break_effect += 1.404
+        self.effect_resistance += 0.233
+        self.effect_hit_rate += 0.073
+    def normal_attack(self, target):
+        pass
+    def skill_attack(self, target):
+        pass
+    def ult_attack(self, target):
+        pass
+    def yiqi_effect(self):
+        pass
 
+firefly = Firefly(level=80)
+print(firefly.get_state())
+
+   
+    
+        
     

@@ -1,13 +1,11 @@
-from typing import Optional, TYPE_CHECKING
-if TYPE_CHECKING:
-    from enemy import Enemy
+
     
 class debuff:
     def __init__(self, name, duration):
         self.name = name
         self.duration = duration
         self.passing_round = 0
-        self.target: Optional[Enemy] = None
+        self.target = None
     def after_round(self):
         self.passing_round += 1
         if self.duration - self.passing_round <= 0:
@@ -15,7 +13,7 @@ class debuff:
 
 
 class Routed(debuff):
-    def __init__(self,target:Optional[Enemy]):
+    def __init__(self,target):
         super().__init__(
             name = 'Routed',
             duration = 2,
