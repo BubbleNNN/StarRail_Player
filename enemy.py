@@ -1,6 +1,6 @@
 class Enemy:
     
-    def __init__(self, name, level, hp, attack, defense, speed, energy_limit, critical_chance, critical_damage, break_effect, outgoing_healing_boost, max_energy, energy_regeneration_rate, effect_hit_rate, effect_resistance, physical_DMG_boost, fire_DMG_boost, ice_DMG_boost, lightning_DMG_boost, wind_DMG_boost, quantum_DMG_boost, imaginary_DMG_boost, phisical_RES_boost, fire_RES_boost, ice_RES_boost, lightning_RES_boost, wind_RES_boost, quantum_RES_boost, imaginary_RES_boost):
+    def __init__(self, name, level, hp, attack, defense, speed, energy_limit, critical_chance, critical_damage, break_effect, outgoing_healing_boost, max_energy, energy_regeneration_rate, effect_hit_rate, effect_resistance, physical_DMG_boost, fire_DMG_boost, ice_DMG_boost, lightning_DMG_boost, wind_DMG_boost, quantum_DMG_boost, imaginary_DMG_boost, phisical_RES_boost, fire_RES_boost, ice_RES_boost, lightning_RES_boost, wind_RES_boost, quantum_RES_boost, imaginary_RES_boost,toughness):
         self.name = name
         self.level = level
         self.hp = hp    
@@ -11,7 +11,6 @@ class Enemy:
         self.fire_DMG_boost = fire_DMG_boost
         self.ice_DMG_boost = ice_DMG_boost
         self.lightning_DMG_boost = lightning_DMG_boost
-        self.wind_DMG_boost = wind_DMG_boost
         self.quantum_DMG_boost = quantum_DMG_boost
         self.imaginary_DMG_boost = imaginary_DMG_boost
         self.phisical_RES_boost = phisical_RES_boost# 抗性
@@ -31,6 +30,10 @@ class Enemy:
         self.beaking_DMG_vunerability = 0 #击破易伤
         self.debuff = []
         self.buff = []
+        self.in_break = False
+        self.weakness = []
+        self.fake_weakness = []#不减抗的弱点
+        self.toughness = toughness
     def get_state(self):
         return {
             "name": self.name,
@@ -63,4 +66,5 @@ class Enemy:
             "quantum_DMG_vunerability": self.quantum_DMG_vunerability,
             "imaginary_DMG_vunerability": self.imaginary_DMG_vunerability,
             "beaking_DMG_vunerability": self.beaking_DMG_vunerability,
+            "in_break": self.in_break
         }

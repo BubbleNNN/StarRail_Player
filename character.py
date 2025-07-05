@@ -4,8 +4,9 @@ class Character(ABC):
     '''
     角色基类
     '''
-    def __init__(self, name, level, hp, attack, defense, speed, critical_chance, critical_damage, break_effect, outgoing_healing_boost, max_energy, energy_regeneration_rate, effect_hit_rate, effect_resistance, physical_DMG_boost, fire_DMG_boost, ice_DMG_boost, lightning_DMG_boost, wind_DMG_boost, quantum_DMG_boost, imaginary_DMG_boost, phisical_RES_boost, fire_RES_boost, ice_RES_boost, lightning_RES_boost, wind_RES_boost, quantum_RES_boost, imaginary_RES_boost):
+    def __init__(self, name, attr,level, hp, attack, defense, speed, critical_chance, critical_damage, break_effect, outgoing_healing_boost, max_energy, energy_regeneration_rate, effect_hit_rate, effect_resistance, physical_DMG_boost, fire_DMG_boost, ice_DMG_boost, lightning_DMG_boost, wind_DMG_boost, quantum_DMG_boost, imaginary_DMG_boost, phisical_RES_boost, fire_RES_boost, ice_RES_boost, lightning_RES_boost, wind_RES_boost, quantum_RES_boost, imaginary_RES_boost):
         self.name = name
+        self.attr = attr
         self.level = level
         self.hp = hp    
         self.attack = attack
@@ -35,11 +36,13 @@ class Character(ABC):
         self.imaginary_RES_boost = imaginary_RES_boost
         self.debuff = []
         self.buff = []
+        self.state = 'normal'
     def get_state(self):
         return {
             "name": self.name,
             "level": self.level,
             "hp": self.hp,
+            "attr":self.attr,
             "attack": self.attack,
             "defense": self.defense,
             "speed": self.speed,
@@ -88,6 +91,7 @@ class Character(ABC):
         """
         普通攻击
         """
+
     @abstractmethod
     def skill_attack(self, target):
         """
@@ -107,6 +111,7 @@ class Firefly(Character):
     def __init__(self, level):
         super().__init__(
             name = 'Firefly',
+            attr = 'fire',
             level = level,
             hp = 815,
             attack = 524,
