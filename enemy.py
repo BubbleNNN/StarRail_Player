@@ -33,7 +33,7 @@ class Enemy:
         self.in_break = False
         self.weakness = []
         self.fake_weakness = []#不减抗的弱点
-        self.toughness = toughness
+        self.toughness = toughness#韧性
     def get_state(self):
         return {
             "name": self.name,

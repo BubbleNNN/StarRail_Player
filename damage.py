@@ -25,6 +25,7 @@ class Direct_Damage:
         damage_boost_coe = 1 + getattr(self.attacker,f'{self.attacker.attr}_DMG_boost')
         damage_vunerability_coe = 1 + getattr(self.attacker,f'{self.attacker.attr}_DMG_vunerability')
         direct_damage = self.base_damage * defence_coe * breakshield_coe * resist_coe * critical_coe * damage_boost_coe * damage_vunerability_coe
+        self.target.hp -= direct_damage
         return {'direct': direct_damage}
 class Break_Damage:
     def __init__(self, attacker, target, base_damage = 1):
@@ -47,6 +48,7 @@ class Break_Damage:
         break_coe = 1 + self.attacker.break_effect
         toughness_coe = (self.target.toughness + 20)/40
         break_damage = self.base_damage * defence_coe * resist_coe * damage_vunerability_coe * break_coe * toughness_coe
+        self.target.hp -= break_damage
         return {'break': break_damage}
     
 class Super_Break_Damage:
@@ -72,6 +74,7 @@ class Super_Break_Damage:
         break_coe = 1 + self.attacker.break_effect
         toughness_coe = self.toughness_delta
         super_break_damage = self.base_damage * defence_coe * resist_coe * damage_vunerability_coe * break_coe * toughness_coe * self.buff_coe
+        self.target.hp -= super_break_damage
         return {'super_break': super_break_damage}
 class Continuous_Damage:
     def __init__(self, attacker, target, base_damage , level = 1):#持续伤害可以叠层，level表示层数
@@ -97,5 +100,6 @@ class Continuous_Damage:
         damage_boost_coe = 1 + getattr(self.attacker,f'{self.attacker.attr}_DMG_boost')
         damage_vunerability_coe = 1 + getattr(self.attacker,f'{self.attacker.attr}_DMG_vunerability')
         continuous_damage = self.base_damage * defence_coe * breakshield_coe * resist_coe* damage_boost_coe * damage_vunerability_coe
+        self.target.hp -= continuous_damage
         return {'continuous': continuous_damage}
     
